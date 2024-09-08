@@ -1,6 +1,10 @@
 pandoc: 3.1.1
 pkgdown: 2.0.7
 pkgdown_sha: ~
-articles: {}
-last_built: 2024-09-07T21:35Z
+articles:
+  Gaslighting: Gaslighting.html
+last_built: 2024-09-08T01:34Z
+urls:
+  reference: https://reilly-conceptscognitionlab.github.io/Gaslighting/reference
+  article: https://reilly-conceptscognitionlab.github.io/Gaslighting/articles
 

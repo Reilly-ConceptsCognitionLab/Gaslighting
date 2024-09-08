@@ -1,14 +1,31 @@
 Package: Gaslighting
-Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: GPL (>= 3)
+Title: Gaslighting: An R package for producing likelihood estimates for whether your text samples represent gaslighting
+Version: 0.0.0.9000
+Authors@R: c(
+    person("Jamie", "Reilly", email = "jamie_reilly@temple.edu", role = c("aut", "cre")),
+    person("Camille", "Johnston", role = "aut"),
+    person("Tom", "Olino", role = "aut"),
+    person("Johanna", "Jarcho", role = "aut"))
+Maintainer: Jamie Reilly, Ph.D. <jamie_reilly@temple.edu>
+Description: This R package produces likelihood estimates and visualizations for whether a text sample of interest reflects 'gaslighting'. These estimates are derived from yoking affective norms for 22 distinct dimensions to every content word in the text sample of interest. The package then computes the cosine angle of this vector to the base vector derived from analyzing hundreds of explicit definitions of gaslighting produced by undergraduate psychology students. 
 Encoding: UTF-8
 LazyData: true
-Depends: 
-    R (>= 2.10)
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
+Depends: 
+    R (>= 2.10),
+    dplyr (>= 0.4.3),
+    magrittr,
+    tidyverse,
+    lsa,
+    tidyr,
+    tm,
+    stringr,
+    textstem,
+    textclean
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+URL: https://reilly-conceptscognitionlab.github.io/Gaslighting,
+    https://reilly-conceptscognitionlab.github.io/Gaslighting/
