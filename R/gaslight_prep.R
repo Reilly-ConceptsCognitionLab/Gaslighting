@@ -13,17 +13,15 @@
 #' @importFrom tm removeWords
 #' @importFrom dplyr mutate
 #' @importFrom stringr str_squish
-#' @importFrom textstem lemmatize_strings(x)
 #' @importFrom  tidyr separate_longer_delim
 #' @importFrom dplyr left_join
 #' @importFrom tidyr drop_na
 #' @importFrom dplyr ungroup
-#' @importFrom tidyr summarise_if
 #' @importFrom tidyr pivot_longer
 #' @importFrom dplyr arrange
 #' @export gaslight_prepped
 
-prep_txt <- function(x) {
+prep_txt <- function(textData) {
   # x <- x %>% dplyr::select(ID, text)
   # x$ID <- as.factor(x$ID)
   # load("data/omissions_dyads23.rda") #run when in package
@@ -32,11 +30,10 @@ prep_txt <- function(x) {
   gaslight_basevector$ID <- as.factor(gaslight_basevector$ID)
   y <- gaslight_basevector
 
-  Lex2Emo::transformText(x)
+  textData <- Lex2Emo::transformText(textData)
 
-z <- rbind(y,x)
-z$dimension <- factor(z$dimension, levels = c('belonging', 'envy', 'apprehension', 'compassion', 'pride', 'delight', 'doubt', 'woe', 'forgiveness', 'exuberance', 'euphoria', 'tranquility', 'indifference', 'powerlessness', 'shame', 'animosity', 'awe', 'surprised', 'fury', 'repugnance', 'agitation', 'exultation'))
-z <- z %>% arrange(ID, dimension)
-gas_test_prepped <- z
-return(gaslight_prepped)
+  gasTestPrepped <- rbind(y,textData)
+  #z$dimension <- factor(z$dimension, levels = c('belonging', 'envy', 'apprehension', 'compassion', 'pride', 'delight', 'doubt', 'woe', 'forgiveness', 'exuberance', 'euphoria', 'tranquility', 'indifference', 'powerlessness', 'shame', 'animosity', 'awe', 'surprised', 'fury', 'repugnance', 'agitation', 'exultation'))
+  gasTestPrepped <- gasTestPrepped %>% dplyr::arrange(ID, dimension)
+  return(gasTestPrepped)
 }
