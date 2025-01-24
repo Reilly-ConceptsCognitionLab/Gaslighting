@@ -18,12 +18,15 @@
 
 gaslight_summarize <- function(x) {
     #takes dataframe of 1 summary vector for each document (22 dimensions), compares cosine distance of each document to base vector, converts to z-score
-    load("data/gaslight_basevector.rda")
-    load("data/traindist.rda")
+    #load("data/gaslight_basevector.rda")
+    #load("data/traindist.rda")
     basevec <- x %>% dplyr::filter(ID == "base_vector") %>% select(fac_score)
-    z <- x %>% dplyr::group_by(ID) %>% dplyr::summarize(cosdist_value =   lsa::cosine(basevec$fac_score, fac_score)) %>% ungroup()
-    m_train <- mean(traindist)
-    sd_train <- sd((traindist))
+    z <- x %>%
+      dplyr::group_by(ID) %>%
+      dplyr::summarize(cosdist_value = lsa::cosine(basevec$fac_score, fac_score)) %>%
+      ungroup()
+    m_train <- mean(gaslightTrainDist)
+    sd_train <- sd(gaslightTrainDist)
     z <- z %>% mutate(z_doc = (cosdist_value-m_train)/sd_train)
     z <- z %>% mutate(GaslightZ_neg1 = ifelse(z_doc<=-1,'NO GASLIGHTING', "YES GASLIGHTING"))
     z <- z %>% mutate(GaslightZ_neg125 = ifelse(z_doc<=-1.25,'NO GASLIGHTING', "YES GASLIGHTING"))
