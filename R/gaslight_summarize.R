@@ -14,7 +14,7 @@
 #' @importFrom tidyr pivot_longer
 #' @importFrom dplyr filter
 #' @importFrom lsa cosine
-#' @export gaslight_summarize
+#' @export
 
 gaslight_summarize <- function(x) {
     #takes dataframe of 1 summary vector for each document (22 dimensions), compares cosine distance of each document to base vector, converts to z-score

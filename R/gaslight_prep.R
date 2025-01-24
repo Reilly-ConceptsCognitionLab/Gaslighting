@@ -19,9 +19,9 @@
 #' @importFrom dplyr ungroup
 #' @importFrom tidyr pivot_longer
 #' @importFrom dplyr arrange
-#' @export gaslight_prepped
+#' @export
 
-prep_txt <- function(textData) {
+gaslight_prep <- function(textData) {
   # x <- x %>% dplyr::select(ID, text)
   # x$ID <- as.factor(x$ID)
   # load("data/omissions_dyads23.rda") #run when in package
