@@ -27,18 +27,17 @@ gaslight_prep <- function(textData) {
   # load("data/omissions_dyads23.rda") #run when in package
   # load("data/affvec_22dim.rda") #run when in package
   #load("data/gaslight_basevector.rda") #run when in package, loads base gaslighting vector
-  gaslightBasevector$ID <- as.factor(gaslightBasevector$ID)
+  #gaslightBasevector$ID <- as.factor(gaslightBasevector$ID)
   # clean and transform data
   textData <- Lex2Emo::transformText(textData)
 
   textData <- textData %>%
     dplyr::select(ID, Dimension, Factor_Score)
-
-  print(textData)
-  print(gaslightBasevector)
-
+  # bind rows together
   gasTestPrepped <- rbind(gaslightBasevector,textData)
-  z$dimension <- factor(z$dimension, levels = c('belonging', 'envy', 'apprehension', 'compassion', 'pride', 'delight', 'doubt', 'woe', 'forgiveness', 'exuberance', 'euphoria', 'tranquility', 'indifference', 'powerlessness', 'shame', 'animosity', 'awe', 'surprised', 'fury', 'repugnance', 'agitation', 'exultation'))
-  gasTestPrepped <- gasTestPrepped %>% dplyr::arrange(ID, dimension)
+  gasTestPrepped$dimension <- factor(gasTestPrepped$Dimension,
+                                     levels = c('belonging', 'envy', 'apprehension', 'compassion', 'pride', 'delight', 'doubt', 'woe', 'forgiveness', 'exuberance', 'euphoria', 'tranquility', 'indifference', 'powerlessness', 'shame', 'animosity', 'awe', 'surprised', 'fury', 'repugnance', 'agitation', 'exultation'))
+  gasTestPrepped <- gasTestPrepped %>%
+    dplyr::arrange(ID, dimension)
   return(gasTestPrepped)
 }
