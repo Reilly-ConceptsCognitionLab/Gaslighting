@@ -29,3 +29,5 @@ Suggests:
 VignetteBuilder: knitr
 URL: https://reilly-conceptscognitionlab.github.io/Gaslighting,
     https://reilly-conceptscognitionlab.github.io/Gaslighting/
+Imports: 
+    Lex2Emo

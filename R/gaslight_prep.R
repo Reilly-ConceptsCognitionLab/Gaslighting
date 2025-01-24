@@ -24,37 +24,16 @@
 #' @export gaslight_prepped
 
 prep_txt <- function(x) {
-  x <- x %>% dplyr::select(ID, text)
-  x$ID <- as.factor(x$ID)
-  load("data/omissions_dyads23.rda") #run when in package
-  load("data/affvec_22dim.rda") #run when in package
+  # x <- x %>% dplyr::select(ID, text)
+  # x$ID <- as.factor(x$ID)
+  # load("data/omissions_dyads23.rda") #run when in package
+  # load("data/affvec_22dim.rda") #run when in package
   load("data/gaslight_basevector.rda") #run when in package, loads base gaslighting vector
   gaslight_basevector$ID <- as.factor(gaslight_basevector$ID)
   y <- gaslight_basevector
-  cleanme <- function(x){
-    x <- tolower(x)
-    x <- gsub("\"", " ", x)
-    x <- gsub("\n", " ", x)
-    x <- gsub("`", "'", x)  # replaces tick marks with apostrophe for contractions
-    x <- textclean::replace_contraction(x) #replace contractions
-    x <- gsub("-", " ", x)
-    x <- gsub("[^a-zA-Z]", " ", x) #omit non-alphabetic characters
-    x <- tm::stripWhitespace(x)
-    x <- stringr::str_squish(x)
-    x <- tm::removeWords(x, omissions_dyads23$word)
-    x <- textstem::lemmatize_strings(x) #lemmatize
-  }
-  x <- x %>% mutate(cleaned_targettext = cleanme(text)) %>% select(!text)
-  x <- x %>% tidyr::separate_longer_delim(cleaned_targettext, delim = " ")
-  x <- dplyr::left_join(x, affvec_22dim, by = c("cleaned_targettext" = "word"))
-  x <- tidyr::drop_na(x) #drop rows with missing values for word
 
-#group and summarize each text
-x <- x %>% dplyr::group_by(ID) %>% dplyr::summarise_if(is.numeric, mean, na.rm = TRUE) %>% ungroup()
-x <- x %>% tidyr::pivot_longer(cols=c('belonging', 'envy', 'apprehension', 'compassion', 'pride', 'delight', 'doubt', 'woe', 'forgiveness', 'exuberance', 'euphoria', 'tranquility', 'indifference', 'powerlessness', 'shame', 'animosity', 'awe', 'surprised', 'fury', 'repugnance', 'agitation', 'exultation'), names_to="dimension", values_to="fac_score")
-#reorder levels of factor in descending magnitude of factor score from base gaslighting vector
-x$dimension <- as.factor(x$dimension)
-x <- data.frame(x)
+  Lex2Emo::transformText(x)
+
 z <- rbind(y,x)
 z$dimension <- factor(z$dimension, levels = c('belonging', 'envy', 'apprehension', 'compassion', 'pride', 'delight', 'doubt', 'woe', 'forgiveness', 'exuberance', 'euphoria', 'tranquility', 'indifference', 'powerlessness', 'shame', 'animosity', 'awe', 'surprised', 'fury', 'repugnance', 'agitation', 'exultation'))
 z <- z %>% arrange(ID, dimension)
