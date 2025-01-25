@@ -27,4 +27,4 @@ Imports:
     Lex2Emo,
     stats
 License: MIT + file LICENSE
-Remotes: github::Reilly-ConceptsCognitionLab/Gaslighting
+Remotes: github::Reilly-ConceptsCognitionLab/Lex2Emo
