@@ -16,13 +16,7 @@ Depends:
     R (>= 3.5),
     dplyr (>= 0.4.3),
     magrittr,
-    tidyverse,
-    lsa,
-    tidyr,
-    tm,
-    stringr,
-    textstem,
-    textclean
+    lsa
 Suggests: 
     knitr,
     rmarkdown
@@ -30,4 +24,6 @@ VignetteBuilder: knitr
 URL: https://reilly-conceptscognitionlab.github.io/Gaslighting,
     https://reilly-conceptscognitionlab.github.io/Gaslighting/
 Imports: 
-    Lex2Emo
+    Lex2Emo,
+    stats
+License: MIT + file LICENSE
