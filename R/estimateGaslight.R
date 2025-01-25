@@ -23,6 +23,7 @@ estimateGaslight <- function(textData) {
   #load("lookup/basevec22.rda")
   #load("lookup/gaslightTrainDist.rda")
 
+  # clean and transform text with call to dependency
   transformedText <- Lex2Emo::transformText(textData)
 
   #textData$ID <- as.factor(x$ID)
