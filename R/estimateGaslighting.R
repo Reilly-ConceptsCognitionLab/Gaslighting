@@ -22,7 +22,7 @@
 
 estimateGaslighting <- function(textData) {
   # set variables as null to start to prevent notes
-  ID <- Mean_EmoSalience <- cos_sim <- cos_dist <- z_cos_dist <- p_gas <- p_Gaslight <- NULL
+  ID <- Dimension <- Mean_EmoSalience <- cos_sim <- cos_dist <- z_cos_dist <- p_gas <- p_Gaslight <- NULL
 
   # clean and transform using call to dependency
   cleanText <- Lex2Emo::transformText(textData)

@@ -13,10 +13,7 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Depends: 
-    R (>= 3.5),
-    dplyr (>= 0.4.3),
-    magrittr,
-    lsa
+    R (>= 3.5)
 Suggests: 
     knitr,
     rmarkdown
@@ -25,6 +22,9 @@ URL: https://reilly-conceptscognitionlab.github.io/Gaslighting,
     https://reilly-conceptscognitionlab.github.io/Gaslighting/
 Imports: 
     Lex2Emo,
-    stats
+    stats,
+    dplyr (>= 0.4.3),
+    magrittr,
+    lsa
 License: MIT + file LICENSE
 Remotes: github::Reilly-ConceptsCognitionLab/Lex2Emo

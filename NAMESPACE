@@ -3,6 +3,8 @@
 export("%>%")
 export(estimateGaslighting)
 importFrom(Lex2Emo,transformText)
+importFrom(dplyr,across)
+importFrom(dplyr,first)
 importFrom(dplyr,group_by)
 importFrom(dplyr,mutate)
 importFrom(dplyr,select)
