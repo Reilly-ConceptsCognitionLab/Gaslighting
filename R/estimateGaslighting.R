@@ -7,6 +7,8 @@
 #' @return a table of cosine distances one for every document
 #' @importFrom Lex2Emo transformText
 #' @importFrom magrittr %>%
+#' @importFrom dplyr across
+#' @importFrom dplyr first
 #' @importFrom dplyr select
 #' @importFrom dplyr group_by
 #' @importFrom dplyr mutate
@@ -24,33 +26,39 @@ estimateGaslighting <- function(textData) {
 
   # clean and transform using call to dependency
   cleanText <- Lex2Emo::transformText(textData)
+
   # replace column name with match for pre-computed data
   colnames(cleanText)[colnames(cleanText) == "Factor_Score"] <- "Mean_EmoSalience"
+
   #dataframe should not contain basevec
   cosData <- cleanText %>%
     dplyr::group_by(ID) %>%
     dplyr::summarize(cos_sim = lsa::cosine(gaslightBasevector$Mean_EmoSalience, Mean_EmoSalience),
+                     dplyr::across(-c(ID, Dimension, Mean_EmoSalience), dplyr::first), # keep mdata
                      .groups = "drop")
+
   #convert cosine similarity to cosine distance using 1-observed cosine similarity
-  conDistData <- cosData %>%
+  cosDistData <- cosData %>%
     dplyr::group_by(ID) %>%
-    dplyr::mutate(cos_dist = 1-cos_sim) %>%
+    dplyr::mutate(cos_dist = 1-cos_sim, .after = cos_sim) %>%
     dplyr::ungroup()
+
   # get mean and sd of training cosine distances
   m_dist <- mean(gaslightTrainDist$cos_dist)
   sd_dist <- stats::sd(gaslightTrainDist$cos_dist)
   # norm the cosine distances to the training distribution
-  normedData <- conDistData %>%
+  normedData <- cosDistData %>%
     dplyr::mutate(z_cos_dist = (cos_dist-mean(gaslightTrainDist$cos_dist))/sd(gaslightTrainDist$cos_dist),
                   p_gas = stats::pnorm(z_cos_dist, mean=0, sd=1, lower.tail = F), #z-score one-sided distance from zero (perfect gaslighting)
-                  p_Gaslight = round(p_gas, digits = 6)) %>%
+                  p_Gaslight = round(p_gas, digits = 6),
+                  .after = cos_dist) %>%
     dplyr::select(!p_gas) %>% # classify each text sample
     dplyr::mutate(Is_It_Gaslighting =
                     ifelse(p_Gaslight<=.05, 'Unlikely',
                            ifelse(p_Gaslight >.05 &  p_Gaslight <=.15, "Weak",
                                   ifelse(p_Gaslight >.15 &  p_Gaslight <=.50, "Moderate",
                                          ifelse(p_Gaslight >.50 &  p_Gaslight <=.80, "Probably",
-                                                'Highly Likely')))))
+                                                'Highly Likely')))), .after = p_Gaslight)
 
   return(normedData)
 }
