@@ -32,7 +32,7 @@ metadata and will be preserved.
 | 2 | You will rejoice to hear that no disaster has accompanied the commencement of an enterprise which you have regarded with such evil forebodings. I arrived here yesterday, and my first task is to assure my dear sister of my welfare and increasing confidence in the success of my undertaking. | 49 |
 | 3 | I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and closed the door behind me. | 59 |
 
-## Running ‘estimateGaslighting()’
+## Calling ‘estimateGaslighting()’
 
 Text is classified as gaslighting using the cosine similarity of the 22
 dimension vector of affective ratings. This is then converted to the
@@ -41,8 +41,8 @@ distances from the training set. This allows each text sample to be
 given a p-value, which is used to classify the text sample into one for
 five groups:
 
-1.  ‘Unlikely’ (0\<=p\<=0.05)
-2.  ‘Weak’ (p\<=0.15)
+1.  ‘Unlikely’ (p\<=0.05)
+2.  ‘Weak’ (0.05\<p\<=0.15)
 3.  ‘Moderate’ (0.15\<p\<=0.50)
 4.  ‘Probably’ (0.50\<p\<=0.80)
 5.  ‘Highly Likely’ (0.80\<p)

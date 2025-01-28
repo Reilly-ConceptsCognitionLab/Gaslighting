@@ -4,6 +4,7 @@ Version: 0.0.0.9000
 Authors@R: c(
     person("Jamie", "Reilly", email = "jamie_reilly@temple.edu", role = c("aut", "cre")),
     person("Camille", "Johnston", role = "aut"),
+    person("Ben", "Sacks", role = "aut"),
     person("Tom", "Olino", role = "aut"),
     person("Johanna", "Jarcho", role = "aut"))
 Maintainer: Jamie Reilly, Ph.D. <jamie_reilly@temple.edu>
