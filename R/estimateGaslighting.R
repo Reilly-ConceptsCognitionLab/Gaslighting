@@ -7,6 +7,7 @@
 #' @return a table of cosine distances one for every document
 #' @importFrom Lex2Emo transformText
 #' @importFrom magrittr %>%
+#' @importFrom dplyr arrange
 #' @importFrom dplyr across
 #' @importFrom dplyr first
 #' @importFrom dplyr select
@@ -26,7 +27,7 @@ estimateGaslighting <- function(textData) {
 
   # clean and transform using call to dependency
   cleanText <- Lex2Emo::transformText(textData)
-
+  cleanText <- cleanText %>% dplyr::arrange(ID, Dimension)
   # replace column name with match for pre-computed data
   colnames(cleanText)[colnames(cleanText) == "Factor_Score"] <- "Mean_EmoSalience"
 

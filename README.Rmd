@@ -1,0 +1,66 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# Gaslighting
+
+Gaslighting allows you to classify each text sample in a corpus based on it's similarity to gaslighting on 22 emotional dimensions. This is all accomplished with a single call to the function 'estimateGaslighting()'.
+
+<!-- badges: start -->
+
+## Installation
+
+You can install the most up to date version of Gaslighting using devtools:
+```{r, eval=FALSE}
+devtools::install_github("https://github.com/Reilly-ConceptsCognitionLab/Gaslighting.git")
+```
+
+## Example data
+
+Data supplied to 'estimateGaslighting()' must fit a specific format requirement. Data must be in formatted as a data frame with a column titled 'Text' with text data and a column titled 'ID' with a unique identifier for each text sample. Any additional columns are treated as metadata and will be preserved.
+
+
+```{r}
+# an example of properly formatted data prior to input into 'estimateGaslighting()'
+
+gaslight <- "The supervisor can be gaslighting the student worker by lying saying that there was money missing from the register and blaming the student as if they were the ones who took it, when really it was the supervisor who miscounted or took the money themselves. The student worker maybe questioning themselves trying to backtrack their steps to see if they did anything wrong, they can be trying to explain that they are not at fault, or they may eventually believe that the were at fault due to how much the supervisor is gaslighting them."
+
+frank <- "You will rejoice to hear that no disaster has accompanied the commencement of an enterprise which you have regarded with such evil forebodings. I arrived here yesterday, and my first task is to assure my dear sister of my welfare and increasing confidence in the success of my undertaking."
+
+holmes <- "I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and closed the door behind me."
+
+
+text <- c(gaslight, frank, holmes)
+
+exampleData <- data.frame(ID = 1:length(text),
+                          Text = text,
+                       Length = lengths(regmatches(text, gregexpr(" ", text))) + 1)
+knitr::kable(exampleData)
+```
+
+## Running 'estimateGaslighting()'
+Text is classified as gaslighting using the cosine similarity of the 22 dimension vector of affective ratings. This is then converted to the cosine distance and normalized to on the distribution of cosine distances from the training set. This allows each text sample to be given a p-value, which is used to classify the text sample into one for four groups: 
+1. 'Unlikely' (0<=p<=0.05)
+2. 'Weak' (p<=0.15)
+3. 'Moderate' (0.15<p<=0.50)
+4. 'Probably' (0.50<p<=0.80)
+5. 'Highly Likely' (0.80<p)
+
+```{r}
+library(Gaslighting)
+estimatedData <- Gaslighting::estimateGaslighting(exampleData)
+knitr::kable(estimatedData)
+```
+
+
