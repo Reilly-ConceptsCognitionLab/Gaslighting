@@ -31,7 +31,7 @@ devtools::install_github("https://github.com/Reilly-ConceptsCognitionLab/Gasligh
 Data supplied to 'estimateGaslighting()' must fit a specific format requirement. Data must be in formatted as a data frame with a column titled 'Text' with text data and a column titled 'ID' with a unique identifier for each text sample. Any additional columns are treated as metadata and will be preserved.
 
 
-```{r}
+```{r, echo=FALSE}
 # an example of properly formatted data prior to input into 'estimateGaslighting()'
 
 gaslight <- "The supervisor can be gaslighting the student worker by lying saying that there was money missing from the register and blaming the student as if they were the ones who took it, when really it was the supervisor who miscounted or took the money themselves. The student worker maybe questioning themselves trying to backtrack their steps to see if they did anything wrong, they can be trying to explain that they are not at fault, or they may eventually believe that the were at fault due to how much the supervisor is gaslighting them."
@@ -50,7 +50,8 @@ knitr::kable(exampleData)
 ```
 
 ## Running 'estimateGaslighting()'
-Text is classified as gaslighting using the cosine similarity of the 22 dimension vector of affective ratings. This is then converted to the cosine distance and normalized to on the distribution of cosine distances from the training set. This allows each text sample to be given a p-value, which is used to classify the text sample into one for four groups: 
+Text is classified as gaslighting using the cosine similarity of the 22 dimension vector of affective ratings. This is then converted to the cosine distance and normalized to on the distribution of cosine distances from the training set. This allows each text sample to be given a p-value, which is used to classify the text sample into one for five groups: 
+
 1. 'Unlikely' (0<=p<=0.05)
 2. 'Weak' (p<=0.15)
 3. 'Moderate' (0.15<p<=0.50)
