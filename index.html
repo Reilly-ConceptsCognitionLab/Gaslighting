@@ -61,22 +61,6 @@
 <h2 id="example-data">Example data<a class="anchor" aria-label="anchor" href="#example-data"></a>
 </h2>
 <p>Data supplied to ‘estimateGaslighting()’ must fit a specific format requirement. Data must be in formatted as a data frame with a column titled ‘Text’ with text data and a column titled ‘ID’ with a unique identifier for each text sample. Any additional columns are treated as metadata and will be preserved.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># an example of properly formatted data prior to input into 'estimateGaslighting()'</span></span>
-<span></span>
-<span><span class="va">gaslight</span> <span class="op">&lt;-</span> <span class="st">"The supervisor can be gaslighting the student worker by lying saying that there was money missing from the register and blaming the student as if they were the ones who took it, when really it was the supervisor who miscounted or took the money themselves. The student worker maybe questioning themselves trying to backtrack their steps to see if they did anything wrong, they can be trying to explain that they are not at fault, or they may eventually believe that the were at fault due to how much the supervisor is gaslighting them."</span></span>
-<span></span>
-<span><span class="va">frank</span> <span class="op">&lt;-</span> <span class="st">"You will rejoice to hear that no disaster has accompanied the commencement of an enterprise which you have regarded with such evil forebodings. I arrived here yesterday, and my first task is to assure my dear sister of my welfare and increasing confidence in the success of my undertaking."</span></span>
-<span></span>
-<span><span class="va">holmes</span> <span class="op">&lt;-</span> <span class="st">"I had called upon my friend, Mr. Sherlock Holmes, one day in the autumn of last year and found him in deep conversation with a very stout, florid-faced, elderly gentleman with fiery red hair. With an apology for my intrusion, I was about to withdraw when Holmes pulled me abruptly into the room and closed the door behind me."</span></span>
-<span></span>
-<span></span>
-<span><span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">gaslight</span>, <span class="va">frank</span>, <span class="va">holmes</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">exampleData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>ID <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span>,</span>
-<span>                          Text <span class="op">=</span> <span class="va">text</span>,</span>
-<span>                       Length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lengths.html" class="external-link">lengths</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/regmatches.html" class="external-link">regmatches</a></span><span class="op">(</span><span class="va">text</span>, <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gregexpr</a></span><span class="op">(</span><span class="st">" "</span>, <span class="va">text</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">exampleData</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
 <col width="33%">
@@ -110,8 +94,15 @@
 <div class="section level2">
 <h2 id="running-estimategaslighting">Running ‘estimateGaslighting()’<a class="anchor" aria-label="anchor" href="#running-estimategaslighting"></a>
 </h2>
-<p>Text is classified as gaslighting using the cosine similarity of the 22 dimension vector of affective ratings. This is then converted to the cosine distance and normalized to on the distribution of cosine distances from the training set. This allows each text sample to be given a p-value, which is used to classify the text sample into one for four groups: 1. ‘Unlikely’ (0&lt;=p&lt;=0.05) 2. ‘Weak’ (p&lt;=0.15) 3. ‘Moderate’ (0.15&lt;p&lt;=0.50) 4. ‘Probably’ (0.50&lt;p&lt;=0.80) 5. ‘Highly Likely’ (0.80&lt;p)</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<p>Text is classified as gaslighting using the cosine similarity of the 22 dimension vector of affective ratings. This is then converted to the cosine distance and normalized to on the distribution of cosine distances from the training set. This allows each text sample to be given a p-value, which is used to classify the text sample into one for five groups:</p>
+<ol style="list-style-type: decimal">
+<li>‘Unlikely’ (0&lt;=p&lt;=0.05)</li>
+<li>‘Weak’ (p&lt;=0.15)</li>
+<li>‘Moderate’ (0.15&lt;p&lt;=0.50)</li>
+<li>‘Probably’ (0.50&lt;p&lt;=0.80)</li>
+<li>‘Highly Likely’ (0.80&lt;p)</li>
+</ol>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://reilly-conceptscognitionlab.github.io/Gaslighting">Gaslighting</a></span><span class="op">)</span></span>
 <span><span class="va">estimatedData</span> <span class="op">&lt;-</span> <span class="fu">Gaslighting</span><span class="fu">::</span><span class="fu"><a href="reference/estimateGaslighting.html">estimateGaslighting</a></span><span class="op">(</span><span class="va">exampleData</span><span class="op">)</span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">estimatedData</span><span class="op">)</span></span></code></pre></div>
