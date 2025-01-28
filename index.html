@@ -92,12 +92,12 @@
 </table>
 </div>
 <div class="section level2">
-<h2 id="running-estimategaslighting">Running ‘estimateGaslighting()’<a class="anchor" aria-label="anchor" href="#running-estimategaslighting"></a>
+<h2 id="calling-estimategaslighting">Calling ‘estimateGaslighting()’<a class="anchor" aria-label="anchor" href="#calling-estimategaslighting"></a>
 </h2>
 <p>Text is classified as gaslighting using the cosine similarity of the 22 dimension vector of affective ratings. This is then converted to the cosine distance and normalized to on the distribution of cosine distances from the training set. This allows each text sample to be given a p-value, which is used to classify the text sample into one for five groups:</p>
 <ol style="list-style-type: decimal">
-<li>‘Unlikely’ (0&lt;=p&lt;=0.05)</li>
-<li>‘Weak’ (p&lt;=0.15)</li>
+<li>‘Unlikely’ (p&lt;=0.05)</li>
+<li>‘Weak’ (0.05&lt;p&lt;=0.15)</li>
 <li>‘Moderate’ (0.15&lt;p&lt;=0.50)</li>
 <li>‘Probably’ (0.50&lt;p&lt;=0.80)</li>
 <li>‘Highly Likely’ (0.80&lt;p)</li>
@@ -178,6 +178,7 @@
 <ul class="list-unstyled">
 <li>Jamie Reilly <br><small class="roles"> Author, maintainer </small>  </li>
 <li>Camille Johnston <br><small class="roles"> Author </small>  </li>
+<li>Ben Sacks <br><small class="roles"> Author </small>  </li>
 <li>Tom Olino <br><small class="roles"> Author </small>  </li>
 <li>Johanna Jarcho <br><small class="roles"> Author </small>  </li>
 </ul>
@@ -190,7 +191,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Jamie Reilly, Camille Johnston, Tom Olino, Johanna Jarcho.</p>
+  <p>Developed by Jamie Reilly, Camille Johnston, Ben Sacks, Tom Olino, Johanna Jarcho.</p>
 </div>
 
 <div class="pkgdown-footer-right">
